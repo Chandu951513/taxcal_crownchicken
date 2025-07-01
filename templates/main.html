@@ -21,10 +21,10 @@
 
 <body class="bg-background min-h-screen flex items-center justify-center">
 
-    <div class="flex gap-8 bg-white rounded-2xl shadow-2xl p-8 max-w-6xl w-full">
+    <div class="flex flex-col lg:flex-row gap-8 bg-white rounded-2xl shadow-2xl p-8 max-w-6xl w-full">
 
         <!-- Left Side: Calculator -->
-        <div class="w-1/2">
+        <div class="w-full lg:w-1/2">
             <h2 class="text-3xl font-extrabold mb-6 text-primary text-center">Amount Calculator</h2>
 
             <form method="POST" class="space-y-6">
@@ -47,7 +47,7 @@
             {% if finalvalue %}
             <div class="mt-6 bg-green-50 border border-green-400 text-green-700 p-4 rounded-lg">
                 <p class="text-lg">
-                    ✅ <strong>Actual Amount:</strong> ${{ finalvalue }}
+                    ✅ <strong>Actual Amount (Without Tax):</strong> ${{ finalvalue }}
                 </p>
             </div>
             {% endif %}
@@ -61,56 +61,56 @@
             {% endif %}
         </div>
 
-        <!-- Right Side: Data Representation -->
-        <!-- Right Side: Data Representation -->
-<div class="w-1/2">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold text-primary">Amount History</h2>
-        <form method="POST" action="{% url 'removedata' %}">
-            {% csrf_token %}
-            <button type="submit"
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                🗑️ Delete All
-            </button>
-        </form>
-    </div>
+        <!-- Right Side: Data Table -->
+        <div class="w-full lg:w-1/2">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-primary">Amount History</h2>
+                <form method="POST" action="{% url 'removedata' %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                        🗑️ Delete All
+                    </button>
+                </form>
+            </div>
 
-    <div class="overflow-y-auto max-h-[500px]">
-        <table class="min-w-full table-auto border border-gray-200">
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th class="px-4 py-2">Total Amount</th>
-                    <th></th>
-                    <th class="px-4 py-2">Actual Amount</th>
-                    <th class="px-4 py-2">Action</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                {% for item in items %}
-                <tr>
-                    <td class="px-4 py-2 text-center">${{ item.totalamount }}</td>
-                    <td class="px-4 py-2 text-center">➡️</td>
-                    <td class="px-4 py-2 text-center">${{ item.actualamount }}</td>
-                    <td class="px-4 py-2 text-center">
-                        <form method="POST" action="{% url 'removeitem' item.id %}">
-                            {% csrf_token %}
-                            <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full">
-                                🗑️
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center py-4 text-gray-500">No data available</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+            <div class="overflow-x-auto max-h-[500px]">
+                <table class="min-w-full table-auto border border-gray-200">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th class="px-4 py-2">Total Amount</th>
+                            <th></th>
+                            <th class="px-4 py-2">Actual Amount</th>
+                            <th class="px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for item in items %}
+                        <tr>
+                            <td class="px-4 py-2 text-center">${{ item.totalamount }}</td>
+                            <td class="px-4 py-2 text-center">➡️</td>
+                            <td class="px-4 py-2 text-center">${{ item.actualamount }}</td>
+                            <td class="px-4 py-2 text-center">
+                                <form method="POST" action="{% url 'removeitem' item.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full">
+                                        🗑️
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-gray-500">No data available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
+    </div>
 
 </body>
 </html>
