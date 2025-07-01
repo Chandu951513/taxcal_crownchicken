@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%yud%4#t(l1l9(&qsdq9he*n+o5b-vj%zod((e-+j1uc@s)k%p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['taxcalculator-7mng.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -122,3 +122,6 @@ STATIFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = [
+    'https://taxcalculator-7mng.onrender.com'
+]
